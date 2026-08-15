@@ -1,70 +1,54 @@
-![](https://heatbadger.now.sh/github/readme/contributte/ui-skeleton/)
+# UI skeleton
 
-<p align=center>
-  <a href="https://github.com/contributte/ui-skeleton/actions"><img src="https://badgen.net/github/checks/contributte/ui-skeleton/master"></a>
-  <a href="https://codecov.io/gh/contributte/ui-skeleton"><img src="https://badgen.net/codecov/c/github/contributte/ui-skeleton"></a>
-  <a href="https://packagist.org/packages/contributte/ui-skeleton"><img src="https://badgen.net/packagist/dm/contributte/ui-skeleton"></a>
-  <a href="https://packagist.org/packages/contributte/ui-skeleton"><img src="https://badgen.net/packagist/v/contributte/ui-skeleton"></a>
-</p>
-<p align=center>
-  <a href="https://packagist.org/packages/contributte/ui-skeleton"><img src="https://badgen.net/packagist/php/contributte/ui-skeleton"></a>
-  <a href="https://github.com/contributte/ui-skeleton"><img src="https://badgen.net/github/license/contributte/ui-skeleton"></a>
-  <a href="https://bit.ly/ctteg"><img src="https://badgen.net/badge/support/gitter/cyan"></a>
-  <a href="https://bit.ly/cttfo"><img src="https://badgen.net/badge/support/forum/yellow"></a>
-  <a href="https://contributte.org/partners.html"><img src="https://badgen.net/badge/sponsor/donations/F96854"></a>
-</p>
+A Nette application skeleton with Vite, Tailwind CSS, and Alpine.js.
 
-<p align=center>
-Website 🚀 <a href="https://contributte.org">contributte.org</a> | Contact 👨🏻‍💻 <a href="https://f3l1x.io">f3l1x.io</a> | Twitter 🐦 <a href="https://twitter.com/contributte">@contributte</a>
-</p>
+## Requirements
 
-<p align=center>
-	<img src="https://api.microlink.io?url=https%3A%2F%2Fexamples.contributte.org%2Fui-skeleton%2F&overlay.browser=light&screenshot=true&meta=false&embed=screenshot.url"></img>
-</p>
+- PHP 8.4 or newer
+- [Composer](https://getcomposer.org/)
+- Node.js and npm
 
------
-
-## Goal
-
-Main goal is to provide example of next generation frontend tooling [Vite.js](https://vitejs.dev/org) with [TailwindCSS](https://tailwindcss.com/) and [Alpine.js](https://alpinejs.dev/) to [Nette](https://nette.org).
-
-## Demo
-
-https://examples.contributte.org/ui-skeleton/
-
-## Installation
-
-You will need `PHP 8.4+` and [Composer](https://getcomposer.org/).
-
-Create project using composer.
+## Create a project
 
 ```bash
-composer create-project -s dev contributte/ui-skeleton acme
+composer create-project contributte/ui-skeleton acme
+cd acme
+make init
+make project
+npm ci
 ```
 
-Now you have application installed. It's time to run it.
+`make init` creates `config/local.neon`; `make project` installs Composer dependencies and prepares the writable runtime directories.
 
-## Startup
+## Local development
 
-The easiest way is to use php built-in web server.
+Start the PHP application:
 
 ```bash
-# make dev
-php -S 0.0.0.0:8000 -t www
+make dev
 ```
 
-Then visit [http://localhost:8000](http://localhost:8000) in your browser.
+Open [http://localhost:8000](http://localhost:8000). Build frontend assets in a second terminal:
 
-## Development
+```bash
+npm run watch
+```
 
-See [how to contribute](https://contributte.org/contributing.html) to this package.
+Use `npm run build` for a production asset build. `make build` installs npm dependencies and builds production assets, while `make assets` starts the asset watcher.
 
-This package is currently maintaining by these authors.
+## Vite assets
 
-<a href="https://github.com/f3l1x">
-    <img width="80" height="80" src="https://avatars2.githubusercontent.com/u/538058?v=3&s=80">
-</a>
+Vite builds `assets/js/app.ts` into `www/dist/` and writes a manifest there. Development builds use stable filenames; production builds use hashed filenames. The application reads this manifest through the UI integration, so deploy the generated `www/dist/` files with the application.
 
------
+## Configuration
 
-Consider to [support](https://contributte.org/partners.html) **contributte** development team. Also thank you for using this project.
+Shared application configuration is in `config/config.neon`. Keep local parameters and service overrides in the ignored `config/local.neon`, created from `config/local.neon.example`.
+
+## Quality assurance
+
+```bash
+make qa
+make tests
+```
+
+`make qa` runs coding-standard and PHPStan checks. `make tests` runs Nette Tester tests from `tests/`.
