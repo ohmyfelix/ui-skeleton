@@ -22,19 +22,19 @@ npm ci
 
 ## Local development
 
-Start the PHP application:
+Run the PHP application and asset watcher together in separate terminals while developing:
 
 ```bash
 make dev
 ```
 
-Open [http://localhost:8000](http://localhost:8000). Build frontend assets in a second terminal:
+In the second terminal:
 
 ```bash
 npm run watch
 ```
 
-Use `npm run build` for a production asset build. `make build` installs npm dependencies and builds production assets, while `make assets` starts the asset watcher.
+`npm run watch` performs the initial development build and writes the manifest before the application can use the assets; wait for that build before opening [http://localhost:8000](http://localhost:8000). It then rebuilds on changes. Use `npm run build` for a production asset build. `make build` installs npm dependencies and builds production assets, while `make assets` starts the asset watcher.
 
 ## Vite assets
 
