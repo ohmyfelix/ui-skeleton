@@ -14,27 +14,27 @@ A Nette application skeleton with Vite, Tailwind CSS, and Alpine.js.
 composer create-project contributte/ui-skeleton acme
 cd acme
 make init
-make project
+make setup
 npm ci
 ```
 
-`make init` creates `config/local.neon`; `make project` installs Composer dependencies and prepares the writable runtime directories.
+Composer installs the PHP dependencies while creating the project. `make init` creates the ignored `config/local.neon`; `make setup` prepares the writable runtime directories. `npm ci` installs the locked frontend dependencies.
 
 ## Local development
 
-Run the PHP application and asset watcher together in separate terminals while developing:
-
-```bash
-make dev
-```
-
-In the second terminal:
+The application expects a generated Vite manifest. Start the asset watcher first:
 
 ```bash
 npm run watch
 ```
 
-`npm run watch` performs the initial development build and writes the manifest before the application can use the assets; wait for that build before opening [http://localhost:8000](http://localhost:8000). It then rebuilds on changes. Use `npm run build` for a production asset build. `make build` installs npm dependencies and builds production assets, while `make assets` starts the asset watcher.
+Wait for its initial build to write `www/dist/manifest.json`, then start the PHP application in a second terminal:
+
+```bash
+make dev
+```
+
+Open [http://localhost:8000](http://localhost:8000). `npm run watch` rebuilds assets on changes; it does not start a Vite development server. Use `npm run build` for a production asset build. `make build` installs npm dependencies and builds production assets, while `make assets` starts the same asset watcher.
 
 ## Vite assets
 
